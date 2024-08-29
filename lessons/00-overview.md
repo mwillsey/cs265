@@ -1,6 +1,6 @@
 # Overview 
 
-Welcome to CS 265: Code Generation and Optimization!
+Welcome to CS 265!
 
 See the [syllabus](../syllabus.md) for logistics, policies, and course schedule.
 

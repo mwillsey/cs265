@@ -1,4 +1,4 @@
-# CS 265: Code Generation and Optimization
+# CS 265: Compiler Optimization
 
 Welcome to CS 265, Fall 2024 edition!
 
