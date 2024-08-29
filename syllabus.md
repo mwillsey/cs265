@@ -63,6 +63,10 @@ The course will feature the following assignments:
   - Reflection should still be written and submitted _individually_.
     - Include your group members in the reflection.
     - Include a brief description of what you personally contributed.
+    - Include a link to your work.
+      - I encourage you to use a public git repository, 
+        but you may use a private one if you wish. 
+        Just invite me to it.
     - Include discussion of the major design decisions and challenges in the implementation.
     - Show off! Includes some code snippets, figures, or other artifacts that you think are particularly interesting.
     - You may share some text/figures/code between group members' reflection.
