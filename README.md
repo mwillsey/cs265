@@ -22,7 +22,7 @@ Schedule is under construction and subject to change.
 |    2 | Sep 3  | Program Representation                    | Course Survey ([bCourses][])                        |
 |      | Sep 5  | "                                         |                                                     |
 |    3 | Sep 10 |                                           |                                                     |
-|      | Sep 12 |                                           |                                                     |
+|      | Sep 12 | _no class_                                |                                                     |
 |    4 | Sep 17 |                                           |                                                     |
 |      | Sep 19 |                                           |                                                     |
 |    5 | Sep 24 |                                           |                                                     |
