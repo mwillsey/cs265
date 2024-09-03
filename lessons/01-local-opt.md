@@ -22,10 +22,10 @@ Let's start with a simple example:
 
 ```c
 int foo(int a) {
-	int x = 1;
-	int y = 2;
-	x = x + a;
-	return x;
+    int x = 1;
+    int y = 2;
+    x = x + a;
+    return x;
 }
 ```
 
@@ -52,27 +52,27 @@ Let's make things a bit more interesting:
 
 ```c
 int foo(int a) {
-	int x = 1;
-	int y = 2;
-	if (x > 0) {
-		y = x;
-	}
-	x = x + a;
-	return x;
+    int x = 1;
+    int y = 2;
+    if (x > 0) {
+        y = x;
+    }
+    x = x + a;
+    return x;
 }
 ```
 
 And in instruction form:
 ```
-	x = 1
-	y = 2
-	c = x > 0
-	branch c L1 L2
+    x = 1
+    y = 2
+    c = x > 0
+    branch c L1 L2
 L1: 
-	y = x
+    y = x
 L2: 
-	x = x + a
-	return x
+    x = x + a
+    return x
 ```
 
 Can you think of a way to eliminate the dead code at label `L1`?
@@ -99,11 +99,11 @@ Here's a simple algorithm to eliminate dead code
 ```py
 used = {}
 for instr in func:
-	used += instr.args
+    used += instr.args
 
 for instr in func:
-	if instr.dest not in used and is_pure(instr):
-		del instr
+    if instr.dest not in used and is_pure(instr):
+        del instr
 ```
 
 Great! We've eliminated the dead code in the above example.
@@ -113,27 +113,27 @@ Can you think of some examples where this algorithm would fail
 
 Here are some different ways our code might be incomplete:
 1. There's more dead code! This can be resolved by iterating until convergence.
-	```
-	a = 1
-	b = 2
-	c = a + a
-	d = b + b
-	return c
-	```
+    ```
+    a = 1
+    b = 2
+    c = a + a
+    d = b + b
+    return c
+    ```
 2. There's a "dead store" (a variable is assigned to but never used).
-	```
-	a = 1
-	a = 2
-	return a
-	```
+    ```
+    a = 1
+    a = 2
+    return a
+    ```
 3. A variable is used _somewhere_, but in a part of the code that won't actually run.
-	```c
-	int a = 1;
-	int b = ...;
-	if (a == 0) {
-		use(b);
-	}
-	```
+    ```c
+    int a = 1;
+    int b = ...;
+    if (a == 0) {
+        use(b);
+    }
+    ```
 
 We handled the first case by simply iterating our algorithm.
 The third case is a bit more challenging, and we'll see how to handle it later in the course.
@@ -186,15 +186,15 @@ Terminators may _not_ appear in the middle of a basic block.
 
 Here's our example from before again:
 ```
-	x = 1
-	y = 2
-	c = x > 0
-	branch c L1 L2
+    x = 1
+    y = 2
+    c = x > 0
+    branch c L1 L2
 L1: 
-	y = x
+    y = x
 L2: 
-	x = x + a
-	return x
+    x = x + a
+    return x
 ```
 
 In this example, the basic blocks are the entry block, `L1`, and `L2`.
@@ -222,16 +222,16 @@ Our global algorithm failed to eliminate the dead code (the first assignment to 
 ```py
 unused: {var: inst} = {}
 for inst in block:
-	# if it's used, it's not unused
-	for use in inst.uses:
-		del unused[use]
-	if inst.dest 
-		# if this inst defines something
-		# we can kill the unused definition
-		if unused[inst.dest]:
-			remove unused[inst.dest]
-		# mark this def as unused for now
-		unused[inst.dest] = inst
+    # if it's used, it's not unused
+    for use in inst.uses:
+        del unused[use]
+    if inst.dest 
+        # if this inst defines something
+        # we can kill the unused definition
+        if unused[inst.dest]:
+            remove unused[inst.dest]
+        # mark this def as unused for now
+        unused[inst.dest] = inst
 ```
 
 Be careful to process uses before defs (in a forward analysis like this one).
@@ -246,10 +246,10 @@ No! Consider this case with clearly dead instruction, but one that isn't "clobbe
 
 ```c
 int foo(int a) {
-	if (a > 0) {
-		int x = 1;
-	}
-	return 0
+    if (a > 0) {
+        int x = 1;
+    }
+    return 0
 }
 ```
 
@@ -262,7 +262,7 @@ Subsumes
 - CSE
 - Modular: can be extended to reason about constants, etc.
 - Could be extended to do some DCE
-	- And even more aggressive DCE once we have a way to figure out what vars are used later!
+    - And even more aggressive DCE once we have a way to figure out what vars are used later!
 
 dce
 ```
@@ -295,11 +295,11 @@ The problem with reasoning about the "final value" is that
  the instruction-based IR doesn't make it easy to see what the "final value" is.
 
 - Problem 1: variable name obscure the values being used
-	- graphs can help with this, we will see this later in the course.
-	- LVN's approach, "run" the program and see what values are used!
-		- the graph will be part of a symbolic state that we keep around
+    - graphs can help with this, we will see this later in the course.
+    - LVN's approach, "run" the program and see what values are used!
+        - the graph will be part of a symbolic state that we keep around
 - Problem 2: we don't know what variables will be used later in the program
-	- later lecture
+    - later lecture
 
 
 ## Local Value Numbering
@@ -309,24 +309,24 @@ values: dict[value, var] = {}
 state: dict[var, value] = {}
 
 def use(var) -> value:
-	if var in state:
-		return state[var]
-	else:
-		return Symbolic(var)
+    if var in state:
+        return state[var]
+    else:
+        return Symbolic(var)
 
 def set(var, value):
-	# TODO doesn't handle clobbered vars
-	if value in values:
-		values[value] = var
-	state[var] = value
-	emit new instr
+    # TODO doesn't handle clobbered vars
+    if value in values:
+        values[value] = var
+    state[var] = value
+    emit new instr
 
 for inst in block:
-	if inst.op == "const":
-		set(inst.dest, inst.const_val)
-	else:
-		v = [inst.op] + [use(arg) for arg in inst.args]
-		set(inst.dest, v)
+    if inst.op == "const":
+        set(inst.dest, inst.const_val)
+    else:
+        v = [inst.op] + [use(arg) for arg in inst.args]
+        set(inst.dest, v)
 ```
 
 
@@ -356,7 +356,7 @@ What about copy propagation?
 # instead of
 # set(inst.dest, ["id", use(inst.args[0])])
 if inst.op == "id":
-	set(inst.dest, use(inst.args[0]))
+    set(inst.dest, use(inst.args[0]))
 ```
 
 add things like commutativity!
@@ -369,14 +369,14 @@ sum2 = b + a
 
 ```py
 if inst.op == "add":
-	v = ["add"] + sorted([use(arg) for arg in inst.args])
-	set(inst.dest, v)
+    v = ["add"] + sorted([use(arg) for arg in inst.args])
+    set(inst.dest, v)
 ```
 
 how to do constant propagation?
 - if `x = 5`, a use of `x` could be replaced with `5` instead of `x`.
 - instructions need to be able to take constants as arguments
-	- not always the case
+    - not always the case
 
 constant folding
 - how to evaluate through constants?
@@ -389,12 +389,12 @@ clobbered vars will overwrite the "saved" version of a computation
 
 
 - Does it do DCE?
-	- No! It actually introduces a bunch of temp vars that might be dead.
-	- We still need our (problematic) pass from before.
+    - No! It actually introduces a bunch of temp vars that might be dead.
+    - We still need our (problematic) pass from before.
 - How to do DCE with this?
-	- Don't emit! Reconstruct this program fragment later.
-	- Look at the block terminator... is it return? 
-	- Then you can actually throw the rest of the symbolic state away!
-	- Be careful with stateful operations.
-	- Or use some analysis to figure out what vars are used later.
+    - Don't emit! Reconstruct this program fragment later.
+    - Look at the block terminator... is it return? 
+    - Then you can actually throw the rest of the symbolic state away!
+    - Be careful with stateful operations.
+    - Or use some analysis to figure out what vars are used later.
 
