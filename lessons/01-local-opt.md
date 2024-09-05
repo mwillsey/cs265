@@ -302,10 +302,19 @@ def add(value) -> num:
     # do the value numbering in val2num, num2val
 
 for inst in block:
-    value = [inst.op] + [var2num[arg] for arg in inst.args]
+    # canonicalize the instruction's arguments by getting the 
+    # value numbers currently held by those vars
+    args = [var2num[arg] for arg in inst.args]
+
+    # create a new value by packaging this instruction with 
+    # the value numbers of its arguments
+    value = [inst.op] + args
+
+    # look up the value number of this value
     num = val2num.get(value)
 
     if num is None:
+        # we've never seen this value before
         num = add(value)
     else:
         # we've seen this value before
@@ -388,6 +397,48 @@ One way to view value numbering is that it's building up a graph of computations
 Could we wait until the end of a block and try to emit the whole block at once,
  just including necessary instructions?
 Not without knowing what variables are used later in the program...
+
+#### Extended Basic Blocks
+
+What if a basic block `A` goes straight into `B` (and `B` has no other predecessors)?
+Surely we can still do _something_ that looks like value numbering?
+In fact, many local analyses can be extended beyond just basic blocks by looking at _extended basic blocks_.
+
+An extended basic block is a set of basic blocks 
+ a sort of single-entry, _multiple-exit_ property.
+In other words, 
+ it's a set of basic blocks
+ with a distinguished entry point such that:
+- the entry basic block may have multiple predecessors
+- but all others must have only one predecessor, which must be in the set
+
+
+Here's an example EBB:
+```mermaid
+flowchart TD
+A --> B
+B --> C
+B --> D
+A --> E
+```
+
+It is essentially a tree rooted at the entry block.
+Any block in an EBB _dominates_ all its children.
+We'll return to a more formal definition of dominance later in the course,
+ but essentially it means that any path to a node in the EBB must go through all its ancestors.
+This allows us to essentially reason about each path in the EBB as a single unit.
+In the context of value numbering,
+ we could pass the state of A's value numbering to B and then to D.
+But we couldn't then pass it to C, because D doesn't run before C!
+So we could optimize this EBB by looking at the path from the root to each node:
+- Optimize A
+    - pass the state into lvn(B)
+        - pass the state into lvn(C) 
+        - throw away the effects of C (or re-run lvn(A, B)), then do lvn(D)
+    - throw away the effects of B (or re-run lvn(A)), then do lvn(E)
+
+This technique can be employed to eek out a little more from your local optimizations,
+ and hints a bit at the more general techniques global versions later in the course.
 
 # Task
 
