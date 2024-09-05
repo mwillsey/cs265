@@ -1,12 +1,16 @@
 # Local Optimization
 
-We are going to start by discussing some 
- basic optimizations that you'll
- definitely want to do in your compiler.
+Further reading:
+- Rice's [COMP512](https://www.clear.rice.edu/comp512/Lectures/02Overview1.pdf)
+- Cornell's [CS 6120](https://www.cs.cornell.edu/courses/cs6120/2023fa/lesson/3/)
+- CMU's [15-745](https://www.cs.cmu.edu/afs/cs/academic/class/15745-s19/www/lectures/L3-Local-Opts.pdf)
+- ["Value Numbering"](https://www.cs.tufts.edu/~nr/cs257/archive/keith-cooper/value-numbering.pdf), Briggs, Cooper, and Simpson
+
+This assigment has an associated [task](#task) you should begin after reading this lesson.
 
 ## Dead code elimination
 
-Let's start with dead code elimination as a motivating example.
+Let's start with (trivial, global) dead code elimination as a motivating example.
 
 "Dead code" is code that doesn't affect the "output" of a program.
 Recall our discussion from [lesson 0](00-overview.md) 
@@ -257,35 +261,14 @@ So you need both for now.
 
 ## Local Value Numbering
 
-Subsumes
+Value numbering is a very general optimization 
+ that be extended implement a number of other optimizations, including:
 - Copy propagation
-- CSE
-- Modular: can be extended to reason about constants, etc.
-- Could be extended to do some DCE
-    - And even more aggressive DCE once we have a way to figure out what vars are used later!
-
-dce
-```
-a = 1
-a = 2
-return a
-```
-
-copy propagation
-```
-a = 1
-b = a
-c = b
-return c
-```
-
-cse
-```
-x = a + b
-y = a + b
-z = x + y
-return z
-```
+- Common subexpression elimination
+- Constant propagation
+- Constant folding
+- Dead code elimination
+    - This part is a little tricky, we'll see why later.
 
 How does LVN accomplish all of this?
 These optimizations can be see as reasoning about the "final value" 
@@ -296,45 +279,56 @@ The problem with reasoning about the "final value" is that
 
 - Problem 1: variable name obscure the values being used
     - graphs can help with this, we will see this later in the course.
+    - "clobbered" variables will make things tricky
+        - we are stuck here for now, but we will look at SSA form later in the course
     - LVN's approach, "run" the program and see what values are used!
-        - the graph will be part of a symbolic state that we keep around
+        - build a sort of a symbolic state that keeps track of the values of variables
 - Problem 2: we don't know what variables will be used later in the program
-    - later lecture
+    - later lecture for non-local value numbering
 
-
-## Local Value Numbering
+Here is some pseudocode for a local value numbering pass.
+Note that this is avoiding important edge cases related to clobbered variables!
+Think about how you'd handle those cases.
 
 ```py
-values: dict[value, var] = {}
-state: dict[var, value] = {}
+# some times all represented as one big table
+# here the 4 maps force you to think about the uniqueness requirements of the keys
+val2num: dict[value, num] = {}
+num2val: dict[num, value] = {}
+var2num: dict[var, num] = {}
+num2var: dict[num, var] = {}
 
-def use(var) -> value:
-    if var in state:
-        return state[var]
-    else:
-        return Symbolic(var)
-
-def set(var, value):
-    # TODO doesn't handle clobbered vars
-    if value in values:
-        values[value] = var
-    state[var] = value
-    emit new instr
+def add(value) -> num:
+    # do the value numbering in val2num, num2val
 
 for inst in block:
-    if inst.op == "const":
-        set(inst.dest, inst.const_val)
+    value = [inst.op] + [var2num[arg] for arg in inst.args]
+    num = val2num.get(value)
+
+    if num is None:
+        num = add(value)
     else:
-        v = [inst.op] + [use(arg) for arg in inst.args]
-        set(inst.dest, v)
+        # we've seen this value before
+        # replace this instruction with an id
+        inst.op = "id"
+        inst.args = [num2var[num]]
+
+    if inst.dest in var2num:
+        # be careful here, what if dest is already in var2num?
+        # one option is to introduce temp variables
+        # another, more conservative option is to remove the overwritten value
+        # from all of the maps and point it to the new value
+    else:
+        var2num[inst.dest] = value
+        num2var[num] = inst.dest
 ```
 
-
-on the fly
-- reconstruct each instr based on the state at that time
-- first time you see something: reconstruct basically that instr
-- second time you see something: use an `id` instruction
-
+In this approach,
+ we are reconstructing each instruction based on the state at that time.
+Not waiting until the end and reconstruction a whole program fragment.
+One consequence of this is that we can't do DCE (we don't know what vars are used later).
+ in fact we will introduce a bunch of temp vars that might be dead.
+So this instance of LVN should be followed by a DCE pass.
 
 Example:
 ```
@@ -347,54 +341,82 @@ prod = sum1 * sum2
 return prod
 ```
 
+### Extensions of LVN
 
-What about copy propagation?
-- LVN is ignorant to the semantics of the instructions
-- operations are "uninterpreted"
-- easy enough to fix for copy propagation
-```py
-# instead of
-# set(inst.dest, ["id", use(inst.args[0])])
-if inst.op == "id":
-    set(inst.dest, use(inst.args[0]))
+#### Stronger lookup
+
+The important part of value numbering is when you "lookup" to see if you've seen a value before.
+A typical approach is to use a hash table to see if you've done the same computation before.
+But determining if two computations are the same can be done in a much less conservative way!
+
+You could add things like commutativity, or even other properties of the operations (say `mul x 2` is the same as `add x x`).
+
+#### Seeing through computations
+
+Still, we aren't interpreting the instructions in a super useful way. 
+For many computations, we can actually evaluate the result!
+- `id` can be evaluated regardless if it's value is constant
+- arithmetic operations can be evaluated if their arguments are constants
+- some arith ops can be evaluated if _some_ of their arguments are constants
+    - e.g., `add x 0`, `mul x 1`, `mul x 0`, `div x 1`, `sub x 0`
+- what other ops can be evaluated in certain cases?
+    - `eq x x`?
+
+#### Clobbered variables
+
+Our pass above hints at a conservative approach we took to clobbered variables, 
+ in which clobbered variables clobber the values from the state, so they can't be reused later!
+Here's a simple example:
+```
+x = a + b
+x = 0
+y = a + b
+return y
 ```
 
-add things like commutativity!
-```
-a = 1
-b = 2
-sum1 = a + b
-sum2 = b + a
-```
+You can take another approach that introduces temporary variables to handle clobbered variables.
+Give it a try if you feel up to it!
+We will see later that SSA (single static assignment) form 
+ is a way to ensure that we can deal with this issue once and for all.
 
-```py
-if inst.op == "add":
-    v = ["add"] + sorted([use(arg) for arg in inst.args])
-    set(inst.dest, v)
-```
+#### Dead code elimination
 
-how to do constant propagation?
-- if `x = 5`, a use of `x` could be replaced with `5` instead of `x`.
-- instructions need to be able to take constants as arguments
-    - not always the case
+Currently our LVN pass introduces a bunch of dead code and relies on a DCE pass to clean it up.
+One way to view value numbering is that it's building up a graph of computations
+ done in a block,
+ and re-emiting instructions corresponding to that graph as it goes.
+Could we wait until the end of a block and try to emit the whole block at once,
+ just including necessary instructions?
+Not without knowing what variables are used later in the program...
 
-constant folding
-- how to evaluate through constants?
+# Task
 
+This course uses my fork
+ of the [bril compiler infrastructure](https://github.com/mwillsey/bril/).
 
-There is a bug!!
+Your task from this lesson is to get familiar with the bril ecosystem and implement the 
+3 optimizations we discussed:
+1. Trival global dead code elimination
+2. Local dead code elimination
+    - See [here](https://github.com/mwillsey/bril/tree/main/examples/test/tdce) for some test cases relevant to dead code optimization.
+3. Local value numbering
+    - You may choose how to handle "clobbered" variables. Just be sure to document your choice.
+    - You may (but don't have to) implement some of the extensions discussed above.
+    - See [here](https://github.com/mwillsey/bril/tree/main/examples/test/lvn) for some test cases relevant to value numbering.
 
-clobbered vars will overwrite the "saved" version of a computation
-- introduce temps
+For this and other assignments, you need not handle all of the cases identically to the examples given
+ in the bril repo.
+Your optimizer should be correct, but it may optimize less (or more or differently) 
+ than the example code.
+If you are ahead of the game (e.g., you already know about dataflow analysis),
+ you are encouraged to implement more aggressive optimizations or a more general pass that subsumes the ones above.
+Just be sure to include why you made the choices you did in your written reflection.
 
+Submit your written reflection on bCourses. It should include some kind of output from the bril tools! A plot, a csv, a table, etc.
 
-- Does it do DCE?
-    - No! It actually introduces a bunch of temp vars that might be dead.
-    - We still need our (problematic) pass from before.
-- How to do DCE with this?
-    - Don't emit! Reconstruct this program fragment later.
-    - Look at the block terminator... is it return? 
-    - Then you can actually throw the rest of the symbolic state away!
-    - Be careful with stateful operations.
-    - Or use some analysis to figure out what vars are used later.
+Include two short bril programs in your reflection:
+1. A program that you can optimize very well with your passes. Show the unoptimized and optimized versions.
+2. A program that you can't optimize with your passes, but you can in your head. What's the issue? What would you need to do to optimize it?
 
+This task (and others) are meant to be open-ended and exploratory.
+The requirements above are the minumum to get a 1-star grade, but you are encouraged to go above and beyond!

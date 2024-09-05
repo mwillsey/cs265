@@ -6,11 +6,16 @@ Welcome to CS 265, Fall 2024 edition!
 - Time: Tuesdays and Thursdays, 2:00pm-3:30pm 
 - Location: Soda 405
 
+This course uses my fork
+ of the [bril compiler infrastructure](https://github.com/mwillsey/bril/).
+
+
 ## Other Course Pages
 
 - [bCourses/Canvas](https://bcourses.berkeley.edu/courses/1538171) (enrollment required)
 - [Syllabus](./syllabus.md)
 - [Project Information](./project.md)
+- [Bril](https://github.com/mwillsey/bril/) (Max's fork)
 
 ## Schedule 
 
@@ -20,10 +25,10 @@ Schedule is under construction and subject to change.
 |-----:|--------|------------------------------------------------|-----------------------------------------------------|
 |    1 | Aug 29 | [Overview](lessons/00-overview.md)             |                                                     |
 |    2 | Sep 3  | [Local Optimizations](lessons/01-local-opt.md) | Course Survey ([bCourses][])                        |
-|      | Sep 5  |                                                |                                                     |
-|    3 | Sep 10 |                                                |                                                     |
+|      | Sep 5  | [Local Optimizations](lessons/01-local-opt.md) |                                                     |
+|    3 | Sep 10 | Data Flow                                      |                                                     |
 |      | Sep 12 | _no class_                                     |                                                     |
-|    4 | Sep 17 |                                                |                                                     |
+|    4 | Sep 17 |                                                | [Task 1](lessons/01-local-opt.md#task) due          |
 |      | Sep 19 |                                                |                                                     |
 |    5 | Sep 24 |                                                |                                                     |
 |      | Sep 26 |                                                |                                                     |
