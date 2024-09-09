@@ -197,7 +197,7 @@ The SSA form interacts with blocks in a particular way,
  so we will spend some time understanding how to convert a program into SSA form.
 If you are familiar with SSA form, 
  you may know the $\phi$-function, which is a way to merge values from different control flow paths.
-Our IR will instead use _block arguments_ as a way to pass values between blocks.
+Some IRs instead use _block arguments_ as a way to pass values between blocks.
 This approach is taken in some modern compilers
  like [Cranelift](https://github.com/bytecodealliance/wasmtime/blob/main/cranelift/docs/ir.md),
  [MLIR](https://mlir.llvm.org/docs/LangRef/#blocks),
@@ -206,10 +206,6 @@ If you aren't familiar with SSA form,
  $\phi$-functions, or block arguments,
  don't worry! 
 We will cover them in coming lessons.
-
-You may choose to use a different IR for your work in this class!
-We will mostly discuss in terms of a basic-block-oriented IR,
- but the concepts should be applicable to other IRs as well.
 
 ### Local Optimizations
 
