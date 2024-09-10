@@ -5,6 +5,7 @@ Welcome to CS 265, Fall 2024 edition!
 - Instructor: [Max Willsey](https://mwillsey.com)
 - Time: Tuesdays and Thursdays, 2:00pm-3:30pm 
 - Location: Soda 405
+- Office hours: After class (TTh 3:30-4:30pm), 725 Soda
 
 This course uses my fork
  of the [bril compiler infrastructure](https://github.com/mwillsey/bril/).
