@@ -26,7 +26,7 @@ Schedule is under construction and subject to change.
 |    1 | Aug 29 | [Overview](lessons/00-overview.md)             |                                                     |
 |    2 | Sep 3  | [Local Optimizations](lessons/01-local-opt.md) | Course Survey ([bCourses][])                        |
 |      | Sep 5  | [Local Optimizations](lessons/01-local-opt.md) |                                                     |
-|    3 | Sep 10 | Data Flow                                      |                                                     |
+|    3 | Sep 10 | [Dataflow](lessons/02-dataflow.md)             |                                                     |
 |      | Sep 12 | _no class_                                     |                                                     |
 |    4 | Sep 17 |                                                | [Task 1](lessons/01-local-opt.md#task) due          |
 |      | Sep 19 |                                                |                                                     |
