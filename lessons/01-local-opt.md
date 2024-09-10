@@ -451,14 +451,22 @@ Your task from this lesson is to get familiar with the bril ecosystem and implem
 2. Local dead code elimination
     - See [here](https://github.com/mwillsey/bril/tree/main/examples/test/tdce) for some test cases relevant to dead code optimization.
 3. Local value numbering
+    - You must implement LVN that performs common subexpression elimination.
+    - You may (but don't have to) implement some of the extensions discussed above (folding, commutativity, etc.).
     - You may choose how to handle "clobbered" variables. Just be sure to document your choice.
-    - You may (but don't have to) implement some of the extensions discussed above.
     - See [here](https://github.com/mwillsey/bril/tree/main/examples/test/lvn) for some test cases relevant to value numbering.
 
-For this and other assignments, you need not handle all of the cases identically to the examples given
- in the bril repo.
-Your optimizer should be correct, but it may optimize less (or more or differently) 
+For this and other assignments, **you need not handle all of the cases identically to the examples given
+ in the bril repo**.
+Your optimizer should be correct (and it's up to you to argue how you know it is),
+ but it may optimize less or more or differently
  than the example code.
+You should, however,
+ be running your optimized code through the bril interpreter 
+ to ensure it outputs the same result as the original code.
+The [remove_nops example](https://github.com/mwillsey/bril/tree/main/examples/remove_nops) 
+ shows how to set up `brench` to run the bril interpreter on the original and optimized code and compare the results.
+
 If you are ahead of the game (e.g., you already know about dataflow analysis),
  you are encouraged to implement more aggressive optimizations or a more general pass that subsumes the ones above.
 Just be sure to include why you made the choices you did in your written reflection.
