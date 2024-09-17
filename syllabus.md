@@ -91,3 +91,12 @@ On bCourses, this will appear as an assignment score out of 1 point.
 Work below the "high-quality" threshold will receive zero stars (points).
 Earning one star is the goal for all assignments, and consistently doing so will earn an A in the course.
 Consistently earning multiple stars will earn an A+.
+
+## Late Policy
+
+The assignment deadlines are designed to help you pace yourself through the course.
+That said, you do have late days to use throughout the semester.
+
+1. You have 10 "late days" to use throughout the semester.
+2. Late days are counted in 24-hour increments, 1 minute late is 1 late day.
+3. Reading reflections **cannot be turned in late**.
