@@ -555,9 +555,26 @@ $$
 
 # Task
 
+Turn in on bCourses a written reflection of the below task.
+
+Do not feel obligated to explain exactly how each analysis works (I already know!),
+ instead focus on the design decisions you made in implementing the analysis,
+ and presenting evidence of its effectiveness and correctness.
+
 - Implement a global constant propagation/folding analysis (and optimization!).
 - Implement a global liveness analysis and use it to global implement dead code elimination.
+- As before, include some measurement of the effectiveness and correctness of your optimization/analysis.
 - Optionally:
   - Implement another dataflow analysis like strong liveness or reaching definitions.
   - What properties does that analysis have? Distributive? May/must? Forward/backward? Optimistic/pessimistic?
   - Implement a generic dataflow solver that can be used for any dataflow problem.
+
+As before, the repo includes some [example analyses and test cases](https://github.com/mwillsey/bril/tree/main/examples/test/df) you may use.
+Do not copy the provided analysis; please attempt your own first based on the course material. 
+You may use the provided analysis as a reference after you have attempted your own.
+You may always use the provided test cases, but note that your results may differ and still be correct,
+ the provided tests are checking the *exact* output the provided analysis produces.
+Note how that folder includes some `.out` files which are not programs,
+ but just lists of facts.
+This is not a standard format,
+ it's just a text dump to stdout from the analysis for `turnt` to check.
