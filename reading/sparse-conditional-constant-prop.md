@@ -6,6 +6,19 @@
 
 Read Sections 1-5.
 
+A quote from the paper sums up why this is an important topic:
+
+> Many optimizing compilers repeatedly execute constant propagation and
+unreachable code elimination since each provides information that improves
+the other. CC solves this problem in an elegant way by combining the two
+optimization. Additionally, the algorithm gets better results than are possible 
+by repeated applications of the separate algorithms, as described in
+Section 5.1.
+
+In other words, this paper is a classic example of how
+ two dataflow analyses can be combined to get better results 
+ that simply running them one after the other (even in a loop)!
+
 ## SSA Primer
 
 This paper mentions the use of Static Single Assignment (SSA) form,
