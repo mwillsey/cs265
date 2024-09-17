@@ -22,40 +22,40 @@ This course uses my fork
 
 Schedule is under construction and subject to change.
 
-| Week | Date   | Topic                                          | Due                                                 |
-|-----:|--------|------------------------------------------------|-----------------------------------------------------|
-|    1 | Aug 29 | [Overview](lessons/00-overview.md)             |                                                     |
-|    2 | Sep 3  | [Local Optimizations](lessons/01-local-opt.md) | Course Survey ([bCourses][])                        |
-|      | Sep 5  | [Local Optimizations](lessons/01-local-opt.md) |                                                     |
-|    3 | Sep 10 | [Dataflow](lessons/02-dataflow.md)             |                                                     |
-|      | Sep 12 | _no class_                                     |                                                     |
-|    4 | Sep 17 |                                                | [Task 1](lessons/01-local-opt.md#task) due          |
-|      | Sep 19 |                                                |                                                     |
-|    5 | Sep 24 |                                                |                                                     |
-|      | Sep 26 |                                                |                                                     |
-|    6 | Oct 1  |                                                |                                                     |
-|      | Oct 3  |                                                |                                                     |
-|    7 | Oct 8  |                                                |                                                     |
-|      | Oct 10 |                                                |                                                     |
-|    8 | Oct 15 |                                                |                                                     |
-|      | Oct 17 |                                                |                                                     |
-|    9 | Oct 22 |                                                |                                                     |
-|      | Oct 24 |                                                |                                                     |
-|   10 | Oct 29 |                                                |                                                     |
-|      | Oct 31 |                                                |                                                     |
-|   11 | Nov 5  | _Election day_, no class                       | [Project Proposals](./project.md#project-proposals) |
-|      | Nov 7  |                                                |                                                     |
-|   12 | Nov 12 |                                                |                                                     |
-|      | Nov 14 |                                                |                                                     |
-|   13 | Nov 19 |                                                |                                                     |
-|      | Nov 21 |                                                |                                                     |
-|   14 | Nov 26 |                                                |                                                     |
-|      | Nov 28 | _Holiday, no class_                            |                                                     |
-|   15 | Dec 3  | [Project Week](./project.md#project-week)      | [Project Week](./project.md#project-week)           |
-|      | Dec 5  | "                                              |                                                     |
-|   16 | Dec 10 | _RRR_                                          |                                                     |
-|      | Dec 12 | "                                              |                                                     |
-|   17 | Dec 17 | _Finals Week_                                  | [Project Reports](./project.md#project-report)      |
+| Week | Date   | Topic                                                                                             | Due                                                 |
+|-----:|--------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+|    1 | Aug 29 | [Overview](lessons/00-overview.md)                                                                |                                                     |
+|    2 | Sep 3  | [Local Optimizations](lessons/01-local-opt.md)                                                    | Course Survey ([bCourses][])                        |
+|      | Sep 5  | [Local Optimizations](lessons/01-local-opt.md)                                                    |                                                     |
+|    3 | Sep 10 | [Dataflow](lessons/02-dataflow.md)                                                                |                                                     |
+|      | Sep 12 | _no class_                                                                                        |                                                     |
+|    4 | Sep 17 | [Dataflow](lessons/02-dataflow.md)                                                                | [Task 1](lessons/01-local-opt.md#task) due          |
+|      | Sep 19 | ["Constant Propagation with Conditional Branches"](./reading/sparse-conditional-constant-prop.md) | Reading reflection ([bCourses][])                   |
+|    5 | Sep 24 |                                                                                                   |                                                     |
+|      | Sep 26 |                                                                                                   |                                                     |
+|    6 | Oct 1  |                                                                                                   | [Task 2](lessons/02-dataflow.md#task) due           |
+|      | Oct 3  |                                                                                                   |                                                     |
+|    7 | Oct 8  |                                                                                                   |                                                     |
+|      | Oct 10 |                                                                                                   |                                                     |
+|    8 | Oct 15 |                                                                                                   |                                                     |
+|      | Oct 17 |                                                                                                   |                                                     |
+|    9 | Oct 22 |                                                                                                   |                                                     |
+|      | Oct 24 |                                                                                                   |                                                     |
+|   10 | Oct 29 |                                                                                                   |                                                     |
+|      | Oct 31 |                                                                                                   |                                                     |
+|   11 | Nov 5  | _Election day_, no class                                                                          | [Project Proposals](./project.md#project-proposals) |
+|      | Nov 7  |                                                                                                   |                                                     |
+|   12 | Nov 12 |                                                                                                   |                                                     |
+|      | Nov 14 |                                                                                                   |                                                     |
+|   13 | Nov 19 |                                                                                                   |                                                     |
+|      | Nov 21 |                                                                                                   |                                                     |
+|   14 | Nov 26 |                                                                                                   |                                                     |
+|      | Nov 28 | _Holiday, no class_                                                                               |                                                     |
+|   15 | Dec 3  | [Project Week](./project.md#project-week)                                                         | [Project Week](./project.md#project-week)           |
+|      | Dec 5  | "                                                                                                 |                                                     |
+|   16 | Dec 10 | _RRR_                                                                                             |                                                     |
+|      | Dec 12 | "                                                                                                 |                                                     |
+|   17 | Dec 17 | _Finals Week_                                                                                     | [Project Reports](./project.md#project-report)      |
 
 ## Resources
 
