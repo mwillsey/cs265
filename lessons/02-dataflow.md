@@ -422,7 +422,7 @@ int foo(int y, int a) {
     x = x + 1;
     y = y + 1;
   }
-  return y;
+  return x;
 }
 ```
 
@@ -440,7 +440,7 @@ And in the IR:
   y = y + 1
   jmp .header
 .exit:
-  return y
+  return x
 ```
 
 Since live variables is a backwards analysis,
@@ -449,8 +449,8 @@ Since live variables is a backwards analysis,
 
 | Block     | Live Out 1 | Live In 1 | Live Out 2 | Live In 2 | Live Out 3 | Live In 3 |
 |-----------|------------|-----------|------------|-----------|------------|-----------|
-| `.exit`   | []         | y         | "          | "         | "          | "         |
-| `.loop`   | y          | x, y      | x, y, a    | x, y, a   | "          | "         |
+| `.exit`   | []         | x         | "          | "         | "          | "         |
+| `.loop`   | x          | x, y      | x, y, a    | x, y, a   | "          | "         |
 | `.header` | x, y       | x, y, a   | x, y, a    | x, y, a   | "          | "         |
 | `.entry`  | x, y       | y, a      | x, y, a    | y, a      | "          | "         |
 
