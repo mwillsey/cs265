@@ -43,6 +43,18 @@ Assignments mostly take the form of written reflections,
  which will be turned in on bCourses.
 I will read them!
 
+**NOTE**: The point of the reflections is to tell me **your thoughts** and **your decisions**.
+Yes, they are also there to ensure you actually did the assignment. 
+But keep in mind that **I know the course material already**, and **I have read the paper**.
+You **do not** need to re-explain the course material or the paper to me;
+ you may use terms and assume I know what they mean.
+You **do** need to tell me what you're thinking:
+ things you found interesting,
+ things you found challenging or got stuck on,
+ decisions you made and how you made them,
+ insights you had beyond what's in the course material,
+ and so on.
+
 The course will feature the following assignments:
 - **Reading reflections**:
   - These are short reflections on the papers that we read in the course.
