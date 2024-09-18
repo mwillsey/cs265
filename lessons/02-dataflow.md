@@ -562,7 +562,11 @@ Do not feel obligated to explain exactly how each analysis works (I already know
  and presenting evidence of its effectiveness and correctness.
 
 - Implement a global constant propagation/folding analysis (and optimization!).
+  - This probably won't entirely subsume the LVN you did in the previous tasks, since you did common subexpression elimination in that.
+  - But you should test and see!
 - Implement a global liveness analysis and use it to global implement dead code elimination.
+  - This will probably subsume the trivial dead code elimination you did in the previous task.
+  - But you should test and see!
 - As before, include some measurement of the effectiveness and correctness of your optimization/analysis.
 - Optionally:
   - Implement another dataflow analysis like strong liveness or reaching definitions.
