@@ -568,6 +568,8 @@ Do not feel obligated to explain exactly how each analysis works (I already know
   - This will probably subsume the trivial dead code elimination you did in the previous task.
   - But you should test and see!
 - As before, include some measurement of the effectiveness and correctness of your optimization/analysis.
+  - Run your optimizations on not only the tests in the `examples/` directory,
+    but also on the benchmarks in the `benchmarks/` directory.
 - Optionally:
   - Implement another dataflow analysis like strong liveness or reaching definitions.
   - What properties does that analysis have? Distributive? May/must? Forward/backward? Optimistic/pessimistic?
