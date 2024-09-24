@@ -264,9 +264,9 @@ Intuitively, if a definition is guaranteed to run before a use, we don't need a 
 How do we compute dominators?
 The naive algorithm is to compute the set of dominators for each node.
 The formula for the dominators of a node $b$ is:
-$$
-\text{dom}(b) = \{b\} \cup \left(\bigcap_{p \to b} \text{dom}(p)\right)
-$$
+$$ \text{dom}(b) = \{b\} \cup \left(\bigcap_{p \to b} \text{dom}(p)\right) $$
+
+Note that the above is the things that dominate $b$, not the things that $b$ dominates!
 
 This formula captures exactly the intuition above! 
 A block $b$ dominates itself, and it dominates a block $c$ iff every predecessor of $c$ is dominated by $b$.
@@ -360,6 +360,8 @@ Now that we have $\phi$ functions at the right places,
 
 ```py
 stack[var] = [] # stack of names for each variable
+dom_tree[b] = list of children of block b in the dominator tree
+              i.e., blocks that are *immediately* dominated by b
 def rename(block):
     remember the stack
 
