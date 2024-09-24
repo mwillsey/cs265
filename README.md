@@ -31,8 +31,8 @@ Schedule is under construction and subject to change.
 |      | Sep 12 | _no class_                                                                                        |                                                     |
 |    4 | Sep 17 | [Dataflow](lessons/02-dataflow.md)                                                                | [Task 1](lessons/01-local-opt.md#task) due          |
 |      | Sep 19 | ["Constant Propagation with Conditional Branches"](./reading/sparse-conditional-constant-prop.md) | Reading reflection ([bCourses][])                   |
-|    5 | Sep 24 |                                                                                                   |                                                     |
-|      | Sep 26 |                                                                                                   |                                                     |
+|    5 | Sep 24 | [SSA](lessons/03-ssa.md)                                                                          |                                                     |
+|      | Sep 26 | ["Simple and Efficient Construction of Static Single Assignment Form"](./reading/braun-ssa.md)    | Reading reflection ([bCourses][])                   |
 |    6 | Oct 1  |                                                                                                   | [Task 2](lessons/02-dataflow.md#task) due           |
 |      | Oct 3  |                                                                                                   |                                                     |
 |    7 | Oct 8  |                                                                                                   |                                                     |
