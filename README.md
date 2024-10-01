@@ -33,11 +33,11 @@ Schedule is under construction and subject to change.
 |      | Sep 19 | ["Constant Propagation with Conditional Branches"](./reading/sparse-conditional-constant-prop.md) | Reading reflection ([bCourses][])                   |
 |    5 | Sep 24 | [SSA](lessons/03-ssa.md)                                                                          |                                                     |
 |      | Sep 26 | ["Simple and Efficient Construction of Static Single Assignment Form"](./reading/braun-ssa.md)    | Reading reflection ([bCourses][])                   |
-|    6 | Oct 1  |                                                                                                   | [Task 2](lessons/02-dataflow.md#task) due           |
-|      | Oct 3  |                                                                                                   |                                                     |
+|    6 | Oct 1  | [Loops](lessons/04-loops.md)                                                                      | [Task 2](lessons/02-dataflow.md#task) due           |
+|      | Oct 3  | ["Lazy Code Motion"](./reading/lazy-code-motion.md)                                               | Reading reflection ([bCourses][])                   |
 |    7 | Oct 8  |                                                                                                   |                                                     |
 |      | Oct 10 |                                                                                                   |                                                     |
-|    8 | Oct 15 |                                                                                                   |                                                     |
+|    8 | Oct 15 |                                                                                                   | [Task 3](lessons/04-loops.md#task) due              |
 |      | Oct 17 |                                                                                                   |                                                     |
 |    9 | Oct 22 |                                                                                                   |                                                     |
 |      | Oct 24 |                                                                                                   |                                                     |

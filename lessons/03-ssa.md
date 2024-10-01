@@ -424,6 +424,14 @@ Chapter 3.2 of the [SSA Book](https://pfalcon.github.io/ssabook/latest/book-full
 
 
 
+# Task
+
+There is no task for this lesson.
+Later lectures and tasks will sometimes assume that you can convert to SSA form.
+
+If you implement SSA conversion in your compiler
+ (I highly recommend it!),
+ tell me about it in whichever task you first use it.
 
 
 
