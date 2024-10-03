@@ -30,3 +30,6 @@ If you are feeling stuck,
  focus your efforts on the transformation and the examples, and gloss over the proofs.
 There are also many presentations of this work online that may help you understand the material;
  for example here are some [slides from CMU's 15-745 course](http://www.cs.cmu.edu/afs/cs/academic/class/15745-s19/www/lectures/L10-Lazy-Code-Motion.pdf).
+
+There is also a pretty good [Youtube video](https://www.youtube.com/watch?v=zPLbAOdIqRw) 
+ that provides some examples. 
