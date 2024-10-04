@@ -287,7 +287,7 @@ So to fit liveness into the dataflow framework:
       - `gen` is the set of variables that are used in the block.
       - `kill` is the set of variables that are defined in the block.
       - special care need to be taken for variables that are both used and defined in the block.
-      - `out(b) = gen(b) U (in(b) - kill(b))`
+      - `in(b) = gen(b) U (out(b) - kill(b))`
 4. The meet function is set union.
     - This is a backwards analysis, so the meet function combines the successors' `in` sets to form the `out` set for a block.
     - This is a "may" analysis, so we use union to represent the fact a variable might be live in any of the successors.
