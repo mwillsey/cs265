@@ -334,6 +334,10 @@ But just outside of that region, we do need $\phi$ functions.
 (convince yourself of this! if $A$'s dominance frontier contains $B$, then $B$ is a join point for the control flow from $A$)
 
 We begin by placing trivial $\phi$ functions that look like `x = phi x .source1 x .source2` at these points.
+In general, a phi function will take a number of arguments equal to the number of predecessors of the block it's in.
+So make sure your initial, trivial $\phi$ functions reflect that.
+ 
+
 
 ```py
 DF[b] = dominance frontier of block b
