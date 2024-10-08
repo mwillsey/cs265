@@ -35,8 +35,8 @@ Schedule is under construction and subject to change.
 |      | Sep 26 | ["Simple and Efficient Construction of Static Single Assignment Form"](./reading/braun-ssa.md)    | Reading reflection ([bCourses][])                   |
 |    6 | Oct 1  | [Loops](lessons/04-loops.md)                                                                      | [Task 2](lessons/02-dataflow.md#task) due           |
 |      | Oct 3  | ["Lazy Code Motion"](./reading/lazy-code-motion.md)                                               | Reading reflection ([bCourses][])                   |
-|    7 | Oct 8  |                                                                                                   |                                                     |
-|      | Oct 10 |                                                                                                   |                                                     |
+|    7 | Oct 8  | [Loops](./lessons/04-loops.md#induction-variables)                                                |                                                     |
+|      | Oct 10 | ["Beyond Induction Variables"](./reading/beyond-induction-variables.md)                           | Reading reflection ([bCourses][])                   |
 |    8 | Oct 15 |                                                                                                   | [Task 3](lessons/04-loops.md#task) due              |
 |      | Oct 17 |                                                                                                   |                                                     |
 |    9 | Oct 22 |                                                                                                   |                                                     |

@@ -5,9 +5,12 @@ Most of a program's execution time will be spent on loops,
  so optimizing them can have a big impact on performance!
 
 Resources:
-- [Slides](http://www.cs.cmu.edu/afs/cs/academic/class/15745-s19/www/lectures/L9-LICM.pdf) from CMU's 15-745
+- [LICM](http://www.cs.cmu.edu/afs/cs/academic/class/15745-s19/www/lectures/L9-LICM.pdf) 
+  and [induction variable](https://www.cs.cmu.edu/afs/cs/academic/class/15745-s19/www/lectures/L8-Induction-Variables.pdf)
+  slides from CMU's 15-745
 - [Compiler transformations for high-performance computing](https://dl.acm.org/doi/10.1145/197405.197406), 1994
     - Sections 6.1-6.4 deal with loop optimizations
+- Course notes from Cornell's CS 4120 on [induction variables](https://www.cs.cornell.edu/courses/cs4120/2019sp/lectures/27indvars/lec27-sp19.pdf)
 
 ## Natural Loops
 
@@ -299,9 +302,203 @@ We can maybe figure that out with some kind of analysis,
 
 This definition should give you enough to iterate to a fixed point!
 
-# Task
+## Induction Variables
 
-**🚧 More details coming**
+Another quintessential elements of a loop in an _induction variable_,
+ typically defined as a variable that is incremented or decremented by some constant amount each iteration.
+
+Consider the following C code:
+```c
+// a is an array of 32-bit ints
+for (int i = 0; i < N; i++) {
+    a[i] = 42;
+}
+```
+
+And in a (non-bril) IR
+```
+    i = 0
+.loop.header:
+    c = i < N
+    branch c .loop.body .loop.exit
+.loop.body:
+    offset = i * 4
+    addr = a + offset
+    store 42 addr
+    i = i + 1
+    jump .loop.header
+.loop.exit:
+    ...
+```
+
+In the above code, 
+ `i` is the loop counter,
+ and in this case it is also an so-called _basic induction variable_
+ since it is incremented by a constant amount each iteration.
+The variables `offset` and `addr` are _derived induction variables_,
+ since they are a function of the basic induction variable.
+Typically we restrict these deriving functions to be linear with respect to the basic induction variables:
+ so of some form `j = c * i + d` where:
+- `j` is the derived induction variable
+- `i` is the basic induction variable
+- `c` and `d` are loop invariant with respect to `i`'s loop (typically constants)
+
+Loop induction variables are part of a couple classic loop optimizations, 
+ namely induction variable elimination and strength reduction[^1]
+ which we will discuss in the next section.
+But they are also important for unrolling, loop parallelization and interchange, and many other loop optimizations.
+
+[^1]: Sometimes people use "strength reduction" to refer to the more general optimization of replacing expensive operations with cheaper ones, even outside of loops. Sometimes it's used specifically to refer to this optimization with respect to induction variables.
+ 
+
+In the above example,
+ the key observation is that `addr = a + i * 4`, and `a` is loop invariant.
+This fits one of a set of commons patterns that allows us to perform a "strength reduction", 
+ replacing the relatively expensive multiplication with a cheaper addition.
+Instead of multiplying by 4 each iteration, we can just add 4 each iteration, and initialize `addr` to `a`.
+
+```
+    i = 0
+    addr = a
+.loop.header:
+    c = i < N
+    branch c .loop.body .loop.exit
+.loop.body:
+    store 42 addr
+    addr = addr + 4
+    i = i + 1
+    jump .loop.header
+```
+
+Above I've also removed some dead code for the old calculation of `addr`.
+Now we can observe that `addr` is now a basic induction variable
+ instead of a derived induction variable.
+
+Great, we've optimized the loop by removing a multiplication!
+But we can go further by observing that `i` is now only used to compute the loop bound.
+We can instead compute the loop bound in terms of `addr`, which allows us to eliminate `i` entirely.
+
+```
+    i = 0
+    addr = a
+    bound = a + N * 4
+.loop.header:
+    c = addr < bound
+    branch c .loop.body .loop.exit
+.loop.body:
+    store 42 addr
+    addr = addr + 4
+    jump .loop.header
+```
+
+Loop optimized!
+
+
+### Finding Basic Induction Variables
+
+Of course to do any optimization with induction variables,
+ you need to be able to find them.
+There are many approaches,
+ and we will read about one
+ in the paper "[Beyond Induction Variables](../reading/beyond-induction-variables.md)".
+
+I will discuss an approach based on SSA, you can also take a dataflow approach, 
+ which the Dragon Book and these [notes from Cornell](https://www.cs.cornell.edu/courses/cs4120/2019sp/lectures/27indvars/lec27-sp19.pdf) cover quite well.
+The dataflow approach is quite elegant and worth looking at!
+It operates with a lattice based on maps from variables to triples: `var -> (var2, mult, add)`.
+These dataflow approaches are totally compatible with SSA form
+ (and SSA makes them easier to implement since you don't have to worry about redefinitions).
+I will instead discuss a simple approach that directly analyzes the SSA graph,
+ as SSA makes basic induction variable finding quite easy.
+
+We begin by looking for basic induction variables of the form `i = i + e` where `e` is some loop invariant expression. 
+If you're just getting started, you can limit yourself to constant `e`s.
+
+The essence of finding induction variables in SSA form is to look for cycles in the SSA graph.
+For a basic induction variable, you're looking for a cycle of the form `i = phi(base, i + incr)`.
+Graphically:
+
+```mermaid
+graph TD
+A["i: phi(base, i + incr)"]
+B[base]
+C[i + incr]
+D[incr]
+A --> B & C
+C --> A & D
+```
+
+### Finding Derived Induction Variables
+
+For derived induction variables `j`, you're looking for a pattern of the form `j = c * i + d` where `c` and `d` are loop invariant and `i` is a basic induction variable.
+Induction variables derived from the same basic induction variable are said to be in the same _family_ as the basic induction variable.
+Again, you can limit yourself to constant `c` and `d` to start.
+We can do this with a dataflow analysis as well, but we will stick to directly inspecting the SSA graph.
+
+Note that you will need to consider separate patterns for the commutative cases, and cases where one of `c` or `d` is 0.
+
+```mermaid
+graph TD
+A["j = c * i + d"] --> B & C
+B["c * i"] --> B1["c"] & B2["i"]
+C["d"]
+```
+
+### Replacing Induction Variables
+
+The purpose of limiting ourselves to simple linear functions is that we 
+ can easily replace derived induction variables with basic induction variables.
+
+For a derived induction variable `j = c * i + d`:
+- `i` is a basic induction variable, with base `base` and increment `incr`
+- Initialize `j0` to `c * base + d` in the preheader.
+- In the loop, redefine `j` to `j = phi(j0, j + c * incr)`
+    - `c * incr` is definitely loop invariant, probably constant!
+
+### Replacing Comparisons
+
+In many cases, once you replace the derived induction variables,
+ the initial basic induction variable is only needed to compute the loop bounds.
+If that's the case,
+ you can replace the comparison to operate on another induction variable from the same family.
+
+Consider `i < N` as a computation of a loop bound.
+And say we have a derived induction variable `j = c * i + d`.
+Some simple algebra gives us the transformation:
+```
+    i     <     N
+c * i + d < c * N + d
+j         < c * N + d
+```
+
+So we can replace the comparison `i < N` with `j < c * N + d`.
+With that, a dead code analysis will be able to eliminate `i` entirely (if it's not used elsewhere).
+
+### Induction Variable Families
+
+In general, induction variables in the same family can be expressed in terms of each other.
+As we saw above, a derived induction variable can be "lowered" into it's own basic induction variable as well
+ via strength reduction,
+ so basic induction variables can be expressed in terms of each other sometimes as well.
+This opens up a wider question/opportunity for optimization:
+ for a family of induction variables, 
+ what do we want to do?
+We could try to eliminate all but one of the basic induction variables,
+ or we could try to replace all derived induction variables with basic induction variables.
+
+These have different trade-offs:
+ more basic induction variables may mean better strength reduction,
+ but it can also increase register pressure, as you have more variables to keep live across the loop.
+On the other hand, you can imagine trying to "de-optimize" code in the reverse process,
+ trying to express as many derived induction variables as possible in terms of a single basic induction variable.
+LLVM [does such a thing](https://llvm.org/doxygen/classllvm_1_1Loop.html#ae731e6e33c2f2a9a6ebd1d51886ce534)
+ in fact it tries to massage the loop to have a single basic induction variable that starts at 0 and increments by 1.
+
+The classic strength reduction optimization as we discussed above is a case where the trade-off is very favorable.
+We begin with 1 basic (`i`) and 2 derived induction variables (`offset` and `addr`).
+ and we end up with 1 basic induction variable (`addr`) only.
+
+# Task
 
 This task will be to implement _some kind_ of loop optimization.
 It's up to you! 

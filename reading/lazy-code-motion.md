@@ -33,3 +33,7 @@ There are also many presentations of this work online that may help you understa
 
 There is also a pretty good [Youtube video](https://www.youtube.com/watch?v=zPLbAOdIqRw) 
  that provides some examples. 
+
+Some terminology:
+- down-safety: a.k.a. anticipated, needed. An expression is anticipated at point p if it's guaranteed to be computed in all outgoing paths.
+- up-safety: available. An expression is available at point p if it's guaranteed to be computed in all incoming paths.
