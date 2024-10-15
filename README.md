@@ -37,11 +37,11 @@ Schedule is under construction and subject to change.
 |      | Oct 3  | ["Lazy Code Motion"](./reading/lazy-code-motion.md)                                               | Reading reflection ([bCourses][])                   |
 |    7 | Oct 8  | [Loops](./lessons/04-loops.md#induction-variables)                                                |                                                     |
 |      | Oct 10 | ["Beyond Induction Variables"](./reading/beyond-induction-variables.md)                           | Reading reflection ([bCourses][])                   |
-|    8 | Oct 15 |                                                                                                   | [Task 3](lessons/04-loops.md#task) due              |
-|      | Oct 17 |                                                                                                   |                                                     |
+|    8 | Oct 15 | [Memory](./lessons/05-memory.md)                                                                  | [Task 3](lessons/04-loops.md#task) due              |
+|      | Oct 17 | ["Strictly Declarative Specification of Sophisticated Points-to Analyses"](./reading/doop.md)     | Reading reflection ([bCourses][])                   |
 |    9 | Oct 22 |                                                                                                   |                                                     |
 |      | Oct 24 |                                                                                                   |                                                     |
-|   10 | Oct 29 |                                                                                                   |                                                     |
+|   10 | Oct 29 |                                                                                                   | [Task 4](lessons/05-memory.md#task) due             |
 |      | Oct 31 |                                                                                                   |                                                     |
 |   11 | Nov 5  | _Election day_, no class                                                                          | [Project Proposals](./project.md#project-proposals) |
 |      | Nov 7  |                                                                                                   |                                                     |
