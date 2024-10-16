@@ -315,8 +315,20 @@ The final concept we need is the _dominance frontier_.
 Essentially, the dominance frontier of a node $A$ is the set of nodes "just outside" of the ones that $A$ dominates.
 
 More formally, $B$ is in the dominance frontier of a node $A$ if both of the following hold:
-- $A$ does _not_ dominate $B$
+- $A$ does _not_ strictly dominate $B$
 - but $A$ _does_ dominate a predecessor of $B$
+
+We need the _strictly_ because a node can be in its own dominance frontier in the presence of a loop.
+
+For example, in this CFG, $B$ dominates $\{B, C\}$, and the dominance frontier of $B$ is $\{B, D\}$.
+
+```mermaid
+graph TD
+    A --> B
+    B --> C --> B
+    A --> D
+    B --> D
+```
 
 ## Converting Into SSA
 
