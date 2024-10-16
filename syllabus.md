@@ -109,6 +109,6 @@ Consistently earning multiple stars will earn an A+.
 The assignment deadlines are designed to help you pace yourself through the course.
 That said, you do have late days to use throughout the semester.
 
-1. You have 10 "late days" to use throughout the semester.
+1. You have 15 "late days" to use throughout the semester.
 2. Late days are counted in 24-hour increments, 1 minute late is 1 late day.
 3. Reading reflections **cannot be turned in late**.

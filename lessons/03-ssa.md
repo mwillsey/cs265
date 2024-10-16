@@ -386,6 +386,8 @@ def rename(block):
 
 If you're in a functional language, you can use a more functional style and pass the stack around as an argument.
 
+Note that when you update the phi argument, if you don't have a name on the stack, then you should just rename it to something undefined to indicate that indeed the variable is not defined when coming from that predecessor.
+
 ## Converting Out of SSA
 
 Converting out of SSA is a much simpler.
