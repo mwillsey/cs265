@@ -147,12 +147,84 @@ The big ones are:
 - JIT (just-in-time) compilation. In this case, the compiler is present at runtime! 
   This gives the compiler the superpower of *making assumptions*. The compiler can basically assume anything it wants about the program as long as it can check it at runtime. If the assumption is true, great, you can use the code optimized for that assumption. If not, you can fall back to the unoptimized code.
 
-### Summarize
+### Inlining
 
-Summarization is hugely weakened in the open-world setting. Optimistic analyses are not sound, but pessimistic analyses are still okay. 
+Summarization and contextuality are weakened in the open-world setting, as you can't do anything optimistically.
+However, duplication still works!
+
+In the interprocedural setting, duplication manifests as **inlining**.
+Intuitively, inlining is the process of replacing a function call with the body of the function.
+
+Inlining is frequently referred to the most important optimization in a compiler
+ for the following reasons:
+- Primarily, inlining can enable many other optimizations
+- It also removes the overhead of the function call itself
+  - the call/return instruction
+  - stack manipulation, argument passing, etc.
+
+The downsides to inlining are essentially the same of basic-block duplication:
+- code size increase, which can decrease instruction cache locality
+- increased compile time
+- impossible to inline recursive functions
+
+To illustrate the power of inlining,
+ here are two (contrived) examples that work a little differently.
+
+The first shows how inlining can let precise information flow "into" a particular call site.
+
+```c
+int add_one(int x) {
+    return x + 1;
+}
+
+int caller() {
+    return add_one(1);
+}
+
+int caller_inlined() {
+    return 1 + 1;
+}
+```
+
+Here we can see that the constant argument can easily be propagated (and then folded) into the inlined call site.
+Inliners in a compiler will may also consider the callsite itself in addition the called function.
+If the callee is given constant arguments, then the inliner may be more likely to inline the function.
+
+The second example shows information flowing in the other direction.
+
+```c
+int square(int x) {
+    return x * x;
+}
+
+int caller(int x) {
+    while (1) {
+        int y = square(x);
+    }
+}
+
+int caller_inlined(int x) {
+    while (1) {
+        int y = x * x;
+    }
+}
+```
+
+Yes, many properties like loop invariance or purity can also be derived for functions. 
+But inlining can save you from having to do so!
 
 
+### When to Inline
 
+Whether or not to inline a function is very difficult to determine in general.
+It depends on what optimizations the inlining would enable,
+ which might depend on other inlining decisions,
+ and so on.
+Our [reading this week](../reading/optimal-inlining.md) discusses how to find an
+ optimial point in this tradeoff space by an extremely expensive search.
+In practice, it's very difficult to know for sure if inlining a particular function is a good idea,
+ so you need some heuristics to guide you.
+In many cases, the heuristics are simple and based on the size of the function.
 
 
 
