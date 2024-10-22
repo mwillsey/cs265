@@ -22,7 +22,7 @@ This course uses my fork
 
 Schedule is under construction and subject to change.
 
-If the topic says "_Extra office hours, no class_", 
+If the topic says "_OH, no class_", 
  that means I will be available during the normal class time for office hours, 
  in addition to the normal office hours after class.
 
@@ -45,7 +45,7 @@ If the topic says "_Extra office hours, no class_",
 |      | Oct 17 | ["Strictly Declarative Specification of Sophisticated Points-to Analyses"](./reading/doop.md)     | Reading reflection ([bCourses][])                       |
 |    9 | Oct 22 | [Interprocedural Optimization](./lessons/06-interprocedural.md)                                   |                                                         |
 |      | Oct 24 | ["Understanding and exploiting optimal function inlining"](./reading/optimal-inlining.md)         | Reading reflection ([bCourses][])                       |
-|   10 | Oct 29 | _Extra office hours, no class_                                                                    | [Task 4](lessons/05-memory.md#task) due                 |
+|   10 | Oct 29 | _OH, no class_                                                                                    | [Task 4](lessons/05-memory.md#task) due                 |
 |      | Oct 31 |                                                                                                   |                                                         |
 |   11 | Nov 5  | _Election day, no class_                                                                          | [Project Proposals](./project.md#project-proposals)     |
 |      | Nov 7  |                                                                                                   |                                                         |
