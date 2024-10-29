@@ -46,7 +46,7 @@ If the topic says "_OH, no class_",
 |    9 | Oct 22 | [Interprocedural Optimization](./lessons/06-interprocedural.md)                                   |                                                         |
 |      | Oct 24 | ["Understanding and exploiting optimal function inlining"](./reading/optimal-inlining.md)         | Reading reflection ([bCourses][])                       |
 |   10 | Oct 29 | _OH, no class_                                                                                    | [Task 4](lessons/05-memory.md#task) due                 |
-|      | Oct 31 |                                                                                                   |                                                         |
+|      | Oct 31 | ["Intermediate Representations in Imperative Compilers: A Survey"](./reading/ir-survey.md)        | Reading reflection ([bCourses][])                       |
 |   11 | Nov 5  | _Election day, no class_                                                                          | [Project Proposals](./project.md#project-proposals)     |
 |      | Nov 7  |                                                                                                   |                                                         |
 |   12 | Nov 12 |                                                                                                   |                                                         |
