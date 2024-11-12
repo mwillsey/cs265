@@ -49,7 +49,7 @@ If the topic says "_OH, no class_",
 |      | Oct 31 | ["Intermediate Representations in Imperative Compilers: A Survey"](./reading/ir-survey.md)                   | Reading reflection ([bCourses][])                       |
 |   11 | Nov 5  | _Election day, no class_                                                                                     | [Project Proposals](./project.md#project-proposals)     |
 |      | Nov 7  | ["BuildIt: A Type-Based Multi-stage Programming Framework for Code Generation in C++"](./reading/buildit.md) | Reading reflection ([bCourses][])                       |
-|   12 | Nov 12 |                                                                                                              |                                                         |
+|   12 | Nov 12 | _no class_                                                                                                   |                                                         |
 |      | Nov 14 |                                                                                                              |                                                         |
 |   13 | Nov 19 |                                                                                                              |                                                         |
 |      | Nov 21 |                                                                                                              |                                                         |
