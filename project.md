@@ -69,8 +69,12 @@ For more inspiration,
 
 ## Project Check-ins
 
-TBD, this will be a short report on your progress, i.e., how you are doing with respect to your proposed goals.
-There will be ample opportunity to work on your project and meet with me during office hours before and after this.
+This is a ~1 page report submitted to bCourses to update me on your progress. It should answer the following questions:
+1. What have you done so far to make progress towards your stated project goals?
+2. Do you need to modify your project goals? If so, how?
+3. What do you plan to do next?
+    - If you're feeling on track, then let me know what's still to be done.
+    - If you need to change your project goals, write how you plan to accomplish the new goals.
 
 ## Project Report
 
