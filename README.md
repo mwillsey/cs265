@@ -51,8 +51,8 @@ If the topic says "_OH, no class_",
 |      | Nov 7  | ["BuildIt: A Type-Based Multi-stage Programming Framework for Code Generation in C++"](./reading/buildit.md) | Reading reflection ([bCourses][])                       |
 |   12 | Nov 12 | _no class_                                                                                                   |                                                         |
 |      | Nov 14 | ["Copy-and-patch compilation"](./reading/copy-and-patch.md)                                                  | Reading reflection ([bCourses][])                       |
-|   13 | Nov 19 |                                                                                                              |                                                         |
-|      | Nov 21 |                                                                                                              |                                                         |
+|   13 | Nov 19 | _no class, extra OH_                                                                                         |                                                         |
+|      | Nov 21 | ["Linear Scan Register Allocation on SSA Form"](./reading/linear-scan-ssa.md)                                | Reading reflection ([bCourses][])                       |
 |   14 | Nov 26 | _no class, no OH_                                                                                            | [Project Check-ins due](./project.md#project-check-ins) |
 |      | Nov 28 | _no class, no OH_                                                                                            |                                                         |
 |   15 | Dec 3  | _no class_                                                                                                   |                                                         |
