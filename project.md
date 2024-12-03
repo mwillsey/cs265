@@ -85,3 +85,11 @@ The report should focus on evaluation, to the extent that it makes sense for you
 Include graphs, tables, and other visualizations as needed.
 If you plan to continue work on the project (not required, but some projects are part of a larger research agenda),
  include a section on future work.
+
+### Making Projects Public
+
+You may **optionally** choose to make your project public.
+If you do this, I will link to your project from the course website, and post to social media saying "look at these cool projects!".
+To do this:
+1. Submit only a URL to your project report on bCourses. The URL should point to a public website (github, personal website, etc.) where your project report is hosted.
+2. Include a comment in the submission that says "I would like my project to be public."
