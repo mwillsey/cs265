@@ -78,4 +78,10 @@ This is a ~1 page report submitted to bCourses to update me on your progress. It
 
 ## Project Report
 
-TBD
+The project report should be 4-6(ish) pages in length, and should be submitted on bCourses.
+Ultimately, the content of the report is flexible, but it should be self-contained
+ (not relying on the reader to have read your proposal or check-in).
+The report should focus on evaluation, to the extent that it makes sense for your project.
+Include graphs, tables, and other visualizations as needed.
+If you plan to continue work on the project (not required, but some projects are part of a larger research agenda),
+ include a section on future work.
