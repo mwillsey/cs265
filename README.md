@@ -10,6 +10,8 @@ Welcome to CS 265, Fall 2024 edition!
 This course uses my fork
  of the [bril compiler infrastructure](https://github.com/mwillsey/bril/).
 
+Some students have opted to make their projects public!
+[Check them out here!](./project.md#public-projects)
 
 ## Other Course Pages
 

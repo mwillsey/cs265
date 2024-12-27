@@ -1,5 +1,30 @@
 # CS 265: Final Project
 
+## Public Projects!
+
+Some students have opted to make their projects public!
+Check them out, and feel free to reach out to students directly!
+I know some are graduating soon and looking for jobs, 
+ so if you're looking for compilers folks, look here!
+
+
+- [Redesigning the Vortex GPU ISA: 64-Bit Instruction Words and Conflict-Aware Register Allocation](https://github.com/richardyrh/cyclotron-cs265)
+    - Ruohan Richard Yan, Shashank Anand
+- [Efficient Register Allocation Algorithms](https://github.com/JacobBolano/cs265_final_project/blob/master/CS_265_Final_Project_Report.pdf)
+    - Jacob Bolano, Shankar Kailas
+- [Compiler Front-end for Translating ChocoPy into Bril](https://github.com/gabe-raulet/chocopy2bril/blob/master/report.pdf)
+    - Gabe Raulet
+- [Bril to RISC-V](https://github.com/ElShroomster/bril_to_riscv)
+    - Sriram Srivatsan
+- [Going to the gym with MLIR: Writing a recompiler for DEX instructions](https://badumbatish.github.io/posts/going_to_mlir_gym_1)
+    - Jasmine Tang
+- [TGO: Trace Guided Optimization](https://github.com/iansseijelly/ltrace_chipyard/tree/CS265-final-project-report)
+    - Chengyi Lux Zhang
+- [Multi-backend support in the cartokit compiler](https://observablehq.com/@parkerziegler/multi-backend-support-in-the-cartokit-compiler)
+    - Parker Ziegler
+
+# Project Info
+
 This course features a project component.
 
 You may do the project individually or in groups of 2-3 people.
